@@ -1,0 +1,27 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "allwinner,sun50i-h616";
+
+    fragment@0 {
+        target = <&pio>;
+        __overlay__ {
+            w1_pins: w1_pins {
+                pins = "PC7";
+                function = "onewire0";
+            };
+        };
+    };
+
+    fragment@1 {
+        target-path = "/";
+        __overlay__ {
+            onewire@0 {
+                compatible = "w1-gpio";
+                gpios = <&pio 2 7 6>; /* PC7 last digit 6 - GPIO_OPEN_DRAIN */
+                status = "okay";
+            };
+        };
+    };
+};
